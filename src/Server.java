@@ -13,7 +13,7 @@ public class Server {
             System.out.println("Server listening on port " + port);
             while(true){
                 Socket socket = serverSocket.accept();
-                System.out.println("New connection from " + socket.getRemoteSocketAddress());
+                System.out.println("New connection from -> " + socket.getRemoteSocketAddress());
                 // this stream reads the data sent from client
                 InputStream input = socket.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(input));
