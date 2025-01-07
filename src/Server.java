@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -13,6 +13,19 @@ public class Server {
             while(true){
                 Socket socket = serverSocket.accept();
                 System.out.println("New connection from " + socket.getRemoteSocketAddress());
+                // this stream reads the data sent from client
+                InputStream input = socket.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                //this stream respond to client
+                OutputStream output = socket.getOutputStream();
+                PrintWriter out = new PrintWriter(output, true);
+
+                String recievedMessage;
+                while((recievedMessage = reader.readLine()) != null){
+                    System.out.println(recievedMessage);
+                    out.println("I received your message -> "+recievedMessage);
+                }
+                socket.close();
             }
 
         } catch (IOException e) {
