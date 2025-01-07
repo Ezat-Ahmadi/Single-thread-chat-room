@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Server {
 
@@ -22,8 +23,10 @@ public class Server {
 
                 String recievedMessage;
                 while((recievedMessage = reader.readLine()) != null){
-                    System.out.println(recievedMessage);
-                    out.println("I received your message -> "+recievedMessage);
+                    System.out.println("received from client "+recievedMessage);
+                    Scanner scanner = new Scanner(System.in);
+                    String respond = scanner.nextLine();
+                    out.println(respond);
                 }
                 socket.close();
             }

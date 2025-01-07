@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) {
@@ -15,11 +16,20 @@ public class Client {
             OutputStream out = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(out,true);
 
-            writer.println("Hello server I am "+ username);
-            writer.flush();
+            String message;
+            boolean isConnected = true;
+            while(isConnected){
+                Scanner scanner = new Scanner(System.in);
+                message = scanner.nextLine();
+                writer.println(message);
+                writer.flush();
+                String response = reader.readLine();
+                System.out.println("server response :" + response);
+                if(response.equals("god bye")){
+                    isConnected = false;
+                }
+            }
 
-            String response = reader.readLine();
-            System.out.println("server response :"+ response);
 
             socket.close();
 
